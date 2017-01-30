@@ -1,0 +1,38 @@
+#####Input parameters
+
+##Analysis type (1 - one sample analysis (default); 2 - two sample analysis)
+Analysis_type = 1
+
+##Genome FASTA file [required]
+Genome_sequence = 
+
+##Organism GFF file [required]
+GFF = 
+
+##Mapped reads file format (Bowtie, SOAP or Eland) [required]
+Mapped_format = Bowtie
+
+##Mapped reads files (replicates should be listed sequentially in appropriate group (control or treatment) separated by commas)
+
+#Treatment [required] (if replicate samples are provided, analysis will be averaged over the replicates)
+Treatment = 
+
+#Control (this is only used with two sample analysis and will be ignored by one-sample analysis code. For a one-sample, sample(s) should be list under Treatment. If replicate samples are provided, analysis will average over the replicates)
+Control = 
+
+##Threshold for minimum number of hits at a unique insertion site for it to be considered a true site. Default value is 5 hits.
+Min. hits = 5
+
+##Percentage of start and end of gene to be discarded when determining essentiality (a value of 5 equals 5% to be ignored @ start and @ end by default)
+Clipping = 5
+
+##Capping of reads at unique sites to minimize PCR/sequencing bias (0 - no capping; or 1 - capping with average hits per insertion site + 2 st. dev. (default); or 2 - capping with average hits per insertion site; or 3 - capping with median hits per insertion site) - only relevant to 2 sample analysis
+Capping = 3
+
+##Weight reads per gene based on number of unique insertions in a gene (total hits*(unique hits per gene/average unique hits per gene)) 0 - No weights 1 - Weights used (- only relevant to 2 sample analysis)
+Weights = 0
+
+##Result format (Long or Short)(if Long it provides additional columns for capped and weighted reads, as well as unadjusted pvalues)
+Result = short
+
+

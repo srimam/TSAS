@@ -1110,22 +1110,30 @@ private static ArrayList<Object> fisher(ArrayList<Double>  average_uniqueHits_ct
 		ArrayList<Double>  adj_fisher_insertion_pvalue = new ArrayList<Double>();
 		for(int i = 0;i<geneID.size();i++)//for each gene
 		{
-			ContingencyTable2x2 table = new ContingencyTable2x2((int)average_uniqueHits_exp.get(i).doubleValue(),(int)average_uniqueHits_ctl.get(i).doubleValue(),(int)(average_unique_hits_genes_exp.get(i)-average_uniqueHits_exp.get(i)),(int)(average_unique_hits_genes_ctl.get(i)-average_uniqueHits_ctl.get(i)));
-			if((int)average_uniqueHits_exp.get(i).doubleValue()==0 && (int)average_uniqueHits_ctl.get(i).doubleValue()!=0)//set min count to 1
-				table = new ContingencyTable2x2(1,(int)average_uniqueHits_ctl.get(i).doubleValue(),(int)(average_unique_hits_genes_exp.get(i)-average_uniqueHits_exp.get(i)),(int)(average_unique_hits_genes_ctl.get(i)-average_uniqueHits_ctl.get(i)));
-			else if((int)average_uniqueHits_exp.get(i).doubleValue()!=0 && (int)average_uniqueHits_ctl.get(i).doubleValue()==0)//set min count to 1
-				table = new ContingencyTable2x2((int)average_uniqueHits_exp.get(i).doubleValue(),1,(int)(average_unique_hits_genes_exp.get(i)-average_uniqueHits_exp.get(i)),(int)(average_unique_hits_genes_ctl.get(i)-average_uniqueHits_ctl.get(i)));
-
-			if((int)average_uniqueHits_exp.get(i).doubleValue()==0 && (int)average_uniqueHits_ctl.get(i).doubleValue()==0)
+			if((int)(average_unique_hits_genes_exp.get(i)-average_uniqueHits_exp.get(i))<0 || (int)(average_unique_hits_genes_ctl.get(i)-average_uniqueHits_ctl.get(i))<0)
 			{
-				fisher_insertion_pvalue.add(1.0);
-				fisher_insertion_pvalue2.add(1.0);
+				fisher_insertion_pvalue.add(Double.NaN);
+				fisher_insertion_pvalue2.add(Double.NaN);
 			}
 			else
 			{
-				FishersExactTest fisher = new FishersExactTest(table,H1.NOT_EQUAL);
-				fisher_insertion_pvalue.add(fisher.getApproxSP());
-				fisher_insertion_pvalue2.add(fisher.getApproxSP());
+				ContingencyTable2x2 table = new ContingencyTable2x2((int)average_uniqueHits_exp.get(i).doubleValue(),(int)average_uniqueHits_ctl.get(i).doubleValue(),(int)(average_unique_hits_genes_exp.get(i)-average_uniqueHits_exp.get(i)),(int)(average_unique_hits_genes_ctl.get(i)-average_uniqueHits_ctl.get(i)));
+				if((int)average_uniqueHits_exp.get(i).doubleValue()==0 && (int)average_uniqueHits_ctl.get(i).doubleValue()!=0)//set min count to 1
+					table = new ContingencyTable2x2(1,(int)average_uniqueHits_ctl.get(i).doubleValue(),(int)(average_unique_hits_genes_exp.get(i)-average_uniqueHits_exp.get(i)),(int)(average_unique_hits_genes_ctl.get(i)-average_uniqueHits_ctl.get(i)));
+				else if((int)average_uniqueHits_exp.get(i).doubleValue()!=0 && (int)average_uniqueHits_ctl.get(i).doubleValue()==0)//set min count to 1
+					table = new ContingencyTable2x2((int)average_uniqueHits_exp.get(i).doubleValue(),1,(int)(average_unique_hits_genes_exp.get(i)-average_uniqueHits_exp.get(i)),(int)(average_unique_hits_genes_ctl.get(i)-average_uniqueHits_ctl.get(i)));
+
+				if((int)average_uniqueHits_exp.get(i).doubleValue()==0 && (int)average_uniqueHits_ctl.get(i).doubleValue()==0)
+				{
+					fisher_insertion_pvalue.add(1.0);
+					fisher_insertion_pvalue2.add(1.0);
+				}
+				else
+				{
+					FishersExactTest fisher = new FishersExactTest(table,H1.NOT_EQUAL);
+					fisher_insertion_pvalue.add(fisher.getApproxSP());
+					fisher_insertion_pvalue2.add(fisher.getApproxSP());
+				}
 			}
 		}
 		//correct for multiple testing (BH)

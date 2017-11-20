@@ -1,0 +1,7 @@
+Major update
+
+V0.3.0 updates the one samples analysis code of V0.2.9 by including methods that enable handling of data obtained from transposons with 
+insertion site specificity such as the Mariner transposon.
+
+The "Parameters.txt" file was updated to include another option "Target seq" where the insertion site specificity of the transposon can be
+entered. Beyond this, the use of TSAS and the output obtained are the same as described in the User guide.

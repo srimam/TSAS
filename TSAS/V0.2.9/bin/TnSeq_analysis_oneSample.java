@@ -376,7 +376,8 @@ public class TnSeq_analysis_oneSample
 		int[] max =new int[mapped_reads_reps_exp.size()];
 		int[] total_uniqueHits_genes=new int[mapped_reads_reps_exp.size()];
 		int[] total_reads_genes=new int[mapped_reads_reps_exp.size()];
-        	double[] total_norm_uniqueHits_per_gene=new double[mapped_reads_reps_exp.size()];
+		int[] total_uniqueHits_genome=new int[mapped_reads_reps_exp.size()];
+        double[] total_norm_uniqueHits_per_gene=new double[mapped_reads_reps_exp.size()];
 		for(int i=0;i<mapped_reads_reps_exp.size();i++)
 		{
 			ArrayList<Object> treatment_results2 = TnSeq_analysis_oneSample.gene_level_analysis(min_hits,clippings,mapped_reads_reps_exp.get(i),end,start,unique_locations.get(i),hits_per_unique_location.get(i),replicon,geneID,annotation);
@@ -395,7 +396,8 @@ public class TnSeq_analysis_oneSample
 				max[i] = (Integer)treatment_results2.get(4);
 				total_reads_genes[i] = (Integer)treatment_results2.get(5);
 				total_uniqueHits_genes[i] = (Integer)treatment_results2.get(6);
-            			total_norm_uniqueHits_per_gene[i] =(Double)treatment_results2.get(7);
+            	total_norm_uniqueHits_per_gene[i] =(Double)treatment_results2.get(7);
+				total_uniqueHits_genome[i] = (Integer)treatment_results2.get(8);
 			}
 		}
 		
@@ -404,7 +406,7 @@ public class TnSeq_analysis_oneSample
 		double ave_unique_locations=0.0;
 		for(int i=0;i<mapped_reads_reps_exp.size();i++)
 		{
-			ave_unique_locations+=unique_locations.get(i).size();
+			ave_unique_locations+=total_uniqueHits_genome[i];
 		}
 		ave_unique_locations=ave_unique_locations/(double)mapped_reads_reps_exp.size();
 
@@ -671,7 +673,8 @@ private static ArrayList<Object> gene_level_analysis(String min_hits, String cli
 	returnValue.add(max);//4
 	returnValue.add(total_reads_genes);//5
 	returnValue.add(total_uniqueHits_genes);//6
-    	returnValue.add(total_norm_uniqueHits_per_gene);//7
+    returnValue.add(total_norm_uniqueHits_per_gene);//7
+	returnValue.add(total_uniqueHits_genome);//8
 	return returnValue;
 }
 

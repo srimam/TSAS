@@ -32,7 +32,7 @@ Capping = 3
 ##Weight reads per gene based on number of unique insertions in a gene (total hits*(unique hits per gene/average unique hits per gene)) 0 - No weights 1 - Weights used (- only relevant to 2 sample analysis)
 Weights = 0
 
-##Transposon sequence specificity (i.e., target sequence of transpson e.g., TA for Mariner transpons). Leave blank from random transposons like Tn5.
+##Transposon sequence specificity (i.e., target sequence of transpson e.g., TA for Mariner transpons). Leave blank from random transposons like Tn5. This is only relevant for one sample analysis.
 Target seq = 
 
 ##Result format (Long or Short)(if Long it provides additional columns for capped and weighted reads, as well as unadjusted pvalues)

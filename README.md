@@ -5,6 +5,8 @@ This document provides instructions for how to use the Tn-seq analysis software 
 
 See TSAS User Guide.docx for detailed description of usage and results.
 
+Note: New version V0.3.0 enables processing of data from sequence specific transposons.
+
 System requirements
 The only system requirement for this tool is to have Java runtime installed and configured on your machine. Due to occasional backward compatibility issues between different versions of Java, it may be beneficial to also have Java software development kit (SDK) installed and configured to enable recompilation of the code if necessary. 
 Since the TSAS code is all written in Java it should be platform independent and run on any machine with Java installed. It has been tested in Linux (CentOS 6), Windows, and Mac environments with Java 1.8.

@@ -209,6 +209,7 @@ public class TnSeq_analysis_oneSample
 		BufferedReader b = new BufferedReader(new InputStreamReader(f));
 		ArrayList<String> replicon_names = new ArrayList<String>();
 		ArrayList<String> replicon_seqs = new ArrayList<String>();
+		ArrayList<String> replicon_desc = new ArrayList<String>();		
 		StringBuffer allSeq= new StringBuffer();
 		lines="";
 		int genome_wide_insertion_sites=0;
@@ -218,6 +219,7 @@ public class TnSeq_analysis_oneSample
 			{
 				String[] result = p2.split(lines);
 				replicon_names.add(result[0].trim().replace(">",""));
+				replicon_desc.add(lines.trim().replace(">",""));
 			}
 		}
 		f.close();b.close();
@@ -235,11 +237,11 @@ public class TnSeq_analysis_oneSample
 		String[] seqResult = p.split(allSeq);
 		for(int i = 0;i<replicon_names.size();i++)
 		{
-			replicon_seqs.add(seqResult[i+1].replace(replicon_names.get(i),""));
+			replicon_seqs.add(seqResult[i+1].replace(replicon_desc.get(i),""));
 			//if target sequence of transposon provide determine total potential insertion sites in genome
 			if(!target_seq.equals(""))
 			{
-				genome_wide_insertion_sites+=TnSeq_analysis_oneSample.count_insertion_sites(seqResult[i+1].replace(replicon_names.get(i),""),target_seq);
+				genome_wide_insertion_sites+=TnSeq_analysis_oneSample.count_insertion_sites(seqResult[i+1].replace(replicon_desc.get(i),""),target_seq);
 			}
 		}
 		int genomeSize=0;
@@ -699,9 +701,7 @@ private static ArrayList<Object> gene_level_analysis(String min_hits, String cli
 		
 		//Determined total number of insertion sites within gene based on provide transposon target seqeunce and clipping threshold
 		if(!target_seq.equals(""))
-		{
-			gene_insertion_sites.add(TnSeq_analysis_oneSample.count_insertion_sites(replicon_seqs.get(replicon_names.indexOf(replicon.get(i))).substring(start.get(i)+clipping,1+end.get(i)-clipping),target_seq));
-		}
+			gene_insertion_sites.add(TnSeq_analysis_oneSample.count_insertion_sites(replicon_seqs.get(replicon_names.indexOf(replicon.get(i))).substring(start.get(i)-1+clipping,end.get(i)-clipping),target_seq));
 	}
 	System.out.println("Total number of unique hits ("+mapped_reads_exp+") : "+ total_uniqueHits_genome+"\n");
 	System.out.println("Total number of unique hits within genes ("+mapped_reads_exp+") : "+total_uniqueHits_genes+"\n");
@@ -764,27 +764,31 @@ private static double binomial_essentiality(int length_of_gene, double probabili
 //method to count number of insertion sites for a given target sequence
 private static int count_insertion_sites(String target,String searchString)
 {
-	Pattern pattern=Pattern.compile(searchString.toUpperCase());
-	Matcher matcher = pattern.matcher(target.toUpperCase());
-
+	ArrayList<String> searchStrings = new ArrayList<String>();
+	String complement=searchString.toUpperCase().replace("A","t").replace("T","a").replace("C","g").replace("G","c").toUpperCase();//complement
+	String reverse=new StringBuffer(searchString.toUpperCase()).reverse().toString();//reverse
+	String rev_complement=new StringBuffer(searchString.toUpperCase()).reverse().toString().replace("A","t").replace("T","a").replace("C","g").replace("G","c").toUpperCase();//reverse complement
+	
+	searchStrings.add(searchString.toUpperCase());//original search string
+	if(!searchStrings.contains(complement))
+		searchStrings.add(complement);//complement
+	if(!searchStrings.contains(reverse))
+		searchStrings.add(reverse);//reverse
+	if(!searchStrings.contains(rev_complement))
+		searchStrings.add(rev_complement);//reverse complement
+	
 	int count = 0;
-	int pos = 0;
-	while (matcher.find(pos))
+	for(int i=0;i<searchStrings.size();i++)
 	{
-		count++;
-		pos = matcher.start() + 1;
-	}
-	
-	//reverse complement search string to search reverse strand...
-	String searchString_rev=new StringBuffer(searchString.toUpperCase()).reverse().toString().replace("A","t").replace("T","a").replace("C","g").replace("G","c").toUpperCase();
-	pattern=Pattern.compile(searchString_rev);
-	matcher = pattern.matcher(target.toUpperCase());
-	
-	pos = 0;
-	while (matcher.find(pos))
-	{
-		count++;
-		pos = matcher.start() + 1;
+		Pattern pattern=Pattern.compile(searchStrings.get(i));
+		Matcher matcher = pattern.matcher(target.toUpperCase());
+		
+		int pos = 0;
+		while (matcher.find(pos))
+		{
+			count++;
+			pos = matcher.start() + 1;
+		}
 	}
 	return count;
 }

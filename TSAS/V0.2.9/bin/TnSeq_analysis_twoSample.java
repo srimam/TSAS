@@ -240,6 +240,7 @@ public class TnSeq_analysis_twoSample
 		BufferedReader b = new BufferedReader(new InputStreamReader(f));
 		ArrayList<String> replicon_names = new ArrayList<String>();
 		ArrayList<String> replicon_seqs = new ArrayList<String>();
+		ArrayList<String> replicon_desc = new ArrayList<String>();
 		StringBuffer allSeq= new StringBuffer();
 		lines="";
 		while ((lines = b.readLine())!=null)
@@ -248,6 +249,7 @@ public class TnSeq_analysis_twoSample
 			{
 				String[] result = p2.split(lines);
 				replicon_names.add(result[0].trim().replace(">",""));
+				replicon_desc.add(lines.trim().replace(">",""));
 			}
 		}
 		f.close();b.close();
@@ -265,7 +267,7 @@ public class TnSeq_analysis_twoSample
 		String[] seqResult = p.split(allSeq);
 		for(int i = 0;i<replicon_names.size();i++)
 		{
-			replicon_seqs.add(seqResult[i+1].replace(replicon_names.get(i),""));
+			replicon_seqs.add(seqResult[i+1].replace(replicon_desc.get(i),""));
 		}
 		int genomeSize=0;
 		for(int i = 0;i<replicon_names.size();i++)

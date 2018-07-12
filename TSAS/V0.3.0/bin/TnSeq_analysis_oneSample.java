@@ -215,7 +215,7 @@ public class TnSeq_analysis_oneSample
 		int genome_wide_insertion_sites=0;
 		while ((lines = b.readLine())!=null)
 		{	
-			if(lines.charAt(0)=='>')
+			if(lines.length()>0 && lines.charAt(0)=='>')
 			{
 				String[] result = p2.split(lines);
 				replicon_names.add(result[0].trim().replace(">",""));
@@ -550,7 +550,7 @@ private static ArrayList<Object> process_mapped_reads(BufferedReader b2,ArrayLis
 		while ((lines = b2.readLine())!=null)
 		{	
 			String[] result = p1.split(lines);
-			if(lines.charAt(0)!='@' && !result[2].trim().equals("*"))
+			if(lines.length()>0 && lines.charAt(0)!='@' && result.length>2 && !result[2].trim().equals("*"))
 			{
 			totalReads++;//total number of reads
 			if(!replicon_names.contains(result[2].trim()))
@@ -575,7 +575,7 @@ private static ArrayList<Object> process_mapped_reads(BufferedReader b2,ArrayLis
 	{
 		while ((lines = b2.readLine())!=null)
 		{
-			if(lines.charAt(0)!='@')
+			if(lines.length()>0 && lines.charAt(0)!='@')
 			{
 			totalReads++;//total number of reads
 			String[] result = p1.split(lines);
@@ -601,7 +601,7 @@ private static ArrayList<Object> process_mapped_reads(BufferedReader b2,ArrayLis
 	{
 		while ((lines = b2.readLine())!=null)
 		{
-			if(lines.charAt(0)!='@')
+			if(lines.length()>0 && lines.charAt(0)!='@')
 			{
 			totalReads++;//total number of reads
 			String[] result = p1.split(lines);

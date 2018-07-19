@@ -3,7 +3,7 @@
 Transposon mutagenesis followed by high-throughput sequencing (Tn-seq) is a robust approach for genome-wide identification of putative essential genes in any organism of interest for which the appropriate genetic tools are available (or can be developed). However, easily accessible computational tools for the streamlined analysis of the data from Tn-seq experiments are currently limited.
 This document provides instructions for how to use the Tn-seq analysis software (TSAS) described in Burger et al. 2017, which provides tools for various kinds of analysis of Tn-seq data sets. 
 
-See TSAS User Guide.docx for detailed description of usage and results.
+See TSAS User Guide.pdf for detailed description of usage and results.
 
 **Note: New version V0.3.0 enables processing of data from sequence specific transposons.**
 

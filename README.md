@@ -84,8 +84,11 @@ Output files formats are identical to TSAS 1. See TSAS 1 user guide for descript
 ## Dependencies
 
 Python >=3.7
+
 Numpy >=1.21
+
 Scipy >=1.7
+
 
 TSAS will probably work with older versions of Numpy and Scipy but hasn't been tested with these.
 

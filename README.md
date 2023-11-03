@@ -79,7 +79,9 @@ python3 TSAS.py -a 2 \
 -w 1
 ```
 
-Output files formats are identical to TSAS 1. See TSAS 1 user guide for description of results columns
+Output files formats are identical to TSAS 1. See TSAS 1 user guide for description of results columns.
+
+Example data folder will need to be uncompressed after cloning repo, before running test commands.
 
 ## Dependencies
 

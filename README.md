@@ -16,39 +16,69 @@ c.	GFF v3 file containing the coordinates of genomic elements in the reference g
 ### Usage options
 
 ```python
-usage: TSAS.py [-h] -a {1,2} -gs GENOME_SEQUENCE -gff GFF -f {Bowtie,SOAP,Eland} -tr TREATMENT [-c CONTROL] [-seq TARGET_SEQUENCE] [-mh MIN_HITS] [-cl CLIPPING] [-cap {0,1,2,3}] [-w {0,1}] [-r {long,short}] [-t]
+usage: TSAS.py [-h] -a {1,2} -gs GENOME_SEQUENCE -gff GFF -f
+               {Bowtie,SOAP,Eland} -tr TREATMENT [-c CONTROL]
+               [-seq TARGET_SEQUENCE] [-mh MIN_HITS] [-cl CLIPPING]
+               [-cap {0,1,2,3}] [-w {0,1}] [-r {long,short}] [-t]
 
 TSAS codebase for TnSeq data analysis
 
 optional arguments:
   -h, --help            show this help message and exit
   -a {1,2}, --analysis_type {1,2}
-                        Type of Tn-seq analysis to perform. Either 1 or 2 sample analysis (Default = 1)
+                        Type of Tn-seq analysis to perform. Either 1 or 2
+                        sample analysis (Default = 1)
   -gs GENOME_SEQUENCE, --genome_sequence GENOME_SEQUENCE
                         Genome sequence file i.e. .fna file
   -gff GFF, --gff GFF   GFF v3 file
   -f {Bowtie,SOAP,Eland}, --mapped_read_format {Bowtie,SOAP,Eland}
                         Format of mapped reads file
   -tr TREATMENT, --treatment TREATMENT
-                        Mapped read file(s) for treatment sample(s). Replicates provided as comma separated string with no spaces. If replicate samples are provided, analysis will average over the replicates. For 1-sample analysis, samples  
-                        should be listed here alone
+                        Mapped read file(s) for treatment sample(s).
+                        Replicates provided as comma separated string with no
+                        spaces. If replicate samples are provided, analysis
+                        will average over the replicates. For 1-sample
+                        analysis, samples should be listed here alone
   -c CONTROL, --control CONTROL
-                        Mapped read file(s) for control sample(s). Replicates provided as comma separated string with no spaces. This parameter is only used with two sample analysis and will be ignored by one-sample analysis. For a one-     
-                        sample analysis, sample(s) should be list under Treatment. If replicate samples are provided, analysis will average over the replicates
+                        Mapped read file(s) for control sample(s). Replicates
+                        provided as comma separated string with no spaces.
+                        This parameter is only used with two sample analysis
+                        and will be ignored by one-sample analysis. For a one-
+                        sample analysis, sample(s) should be list under
+                        Treatment. If replicate samples are provided, analysis
+                        will average over the replicates
   -seq TARGET_SEQUENCE, --target_sequence TARGET_SEQUENCE
-                        Transposon sequence specificity (i.e., target sequence of transpson e.g., TA for Mariner transpons). Leave blank from random transposons like Tn5.
+                        Transposon sequence specificity (i.e., target sequence
+                        of transpson e.g., TA for Mariner transpons). Leave
+                        blank from random transposons like Tn5.
   -mh MIN_HITS, --min_hits MIN_HITS
-                        Threshold for minimum number of hits at a unique insertion site for it to be considered a true site. Default = 1
+                        Threshold for minimum number of hits at a unique
+                        insertion site for it to be considered a true site.
+                        Default = 1
   -cl CLIPPING, --clipping CLIPPING
-                        Percentage of start and end of gene to be discarded when determining essentiality (e.g., a value of 5 equals 5 percent to be ignored @ start and @ end). Default = 0
+                        Percentage of start and end of gene to be discarded
+                        when determining essentiality (e.g., a value of 5
+                        equals 5 percent to be ignored @ start and @ end).
+                        Default = 0
   -cap {0,1,2,3}, --capping {0,1,2,3}
-                        Capping of reads at unique sites to minimize PCR/sequencing bias (0 - no capping; or 1 - capping with average hits per insertion site + 2 st. dev. (default); or 2 - capping with average hits per insertion site; or 3  
-                        - capping with median hits per insertion site). This parameter is only relevant to 2 sample analysis
+                        Capping of reads at unique sites to minimize
+                        PCR/sequencing bias (0 - no capping; or 1 - capping
+                        with average hits per insertion site + 2 st. dev.
+                        (default); or 2 - capping with average hits per
+                        insertion site; or 3 - capping with median hits per
+                        insertion site). This parameter is only relevant to 2
+                        sample analysis
   -w {0,1}, --weight {0,1}
-                        Weight reads per gene based on number of unique insertions in a gene (total hits*(unique hits per gene/average unique hits per gene)) 0 - No weights 1 - Weights used (- only relevant to 2 sample analysis)
+                        Weight reads per gene based on number of unique
+                        insertions in a gene (total hits*(unique hits per
+                        gene/average unique hits per gene)) 0 - No weights 1 -
+                        Weights used (- only relevant to 2 sample analysis)
   -r {long,short}, --result_format {long,short}
-                        Result format. If Long it provides additional columns for capped and weighted reads, as well as unadjusted pvalues)
-  -t , --threads        Number of threads to use for analysis (Default = no of available cpus)
+                        Result format. If Long it provides additional columns
+                        for capped and weighted reads, as well as unadjusted
+                        pvalues)
+  -t , --threads        Number of threads to use for analysis (Default = no of
+                        available cpus)
 ```
 
 ### Example runs

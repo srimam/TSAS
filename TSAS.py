@@ -53,7 +53,7 @@ def main(user_options, rundir):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description='TSAS codebase for TnSeq data analysis')
-    parser.add_argument('-a', '--analysis_type', choices = ['1','2'], default = '1', help='Type of Tn-seq analysis to performe. Either 1 or 2 sample analysis (Default = 1)', required=True)
+    parser.add_argument('-a', '--analysis_type', choices = ['1','2'], default = '1', help='Type of Tn-seq analysis to perform. Either 1 or 2 sample analysis (Default = 1)', required=True)
     parser.add_argument('-gs', '--genome_sequence', help='Genome sequence file i.e. .fna file', required=True)
     parser.add_argument('-gff', '--gff', help='GFF v3 file', required=True)
     parser.add_argument('-f', '--mapped_read_format', choices = ['Bowtie','SOAP', 'Eland'], default = 'Bowtie', help='Format of mapped reads file', required=True)
@@ -61,7 +61,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--control', help='Mapped read file(s) for control sample(s). Replicates provided as comma separated string with no spaces. This parameter is only used with two sample analysis and will be ignored by one-sample analysis. For a one-sample analysis, sample(s) should be list under Treatment. If replicate samples are provided, analysis will average over the replicates')
     parser.add_argument('-seq', '--target_sequence', default = '', help='Transposon sequence specificity (i.e., target sequence of transpson e.g., TA for Mariner transpons). Leave blank from random transposons like Tn5.')
     parser.add_argument('-mh', '--min_hits', default = 1, type = int, help='Threshold for minimum number of hits at a unique insertion site for it to be considered a true site. Default = 1')
-    parser.add_argument('-cl', '--clipping', default = 0, type = float, help='Percentage of start and end of gene to be discarded when determining essentiality (e.g., a value of 5 equals 5% to be ignored @ start and @ end). Default = 0')
+    parser.add_argument('-cl', '--clipping', default = 0, type = float, help='Percentage of start and end of gene to be discarded when determining essentiality (e.g., a value of 5 equals 5 percent to be ignored @ start and @ end). Default = 0')
     parser.add_argument('-cap', '--capping', default = '1', choices = ['0','1','2','3'], help='Capping of reads at unique sites to minimize PCR/sequencing bias (0 - no capping; or 1 - capping with average hits per insertion site + 2 st. dev. (default); or 2 - capping with average hits per insertion site; or 3 - capping with median hits per insertion site). This parameter is only relevant to 2 sample analysis')
     parser.add_argument('-w', '--weight', default = '0', choices = ['0','1'], help='Weight reads per gene based on number of unique insertions in a gene (total hits*(unique hits per gene/average unique hits per gene)) 0 - No weights 1 - Weights used (- only relevant to 2 sample analysis)')
     parser.add_argument('-r', '--result_format', default = 'short', choices = ['long','short'], help='Result format. If Long it provides additional columns for capped and weighted reads, as well as unadjusted pvalues)')
